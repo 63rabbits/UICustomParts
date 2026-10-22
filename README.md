@@ -6,4 +6,4 @@
 
 ![SegmentPicker.gif](./SegmentPicker.gif)
 
-![YearMonthPicker.png](./YearMonthPicker.png)
+![YearMonthPicker.gif](./YearMonthPicker.gif)
