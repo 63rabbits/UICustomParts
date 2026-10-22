@@ -11,7 +11,6 @@
 import SwiftUI
 
 protocol SegmentPickerElement: Hashable, Identifiable, CaseIterable {
-
     var id: String { get }
     var title: String? { get }
 }

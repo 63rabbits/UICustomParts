@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-enum Demo: String, SegmentPickerElement {
+enum SegmentEnum: String, SegmentPickerElement {
     case one    = "001"
     case two    = "002"
     case three  = "003"
 }
 
 struct ContentView: View {
-    @State private var selectedSegment: Demo = .one
+    @State private var selectedSegment: SegmentEnum = .one
     @State private var selectedDate = Date()
 
     var body: some View {
         VStack {
+            
             VStack {
                 customName("Segment Picker")
                 
@@ -49,6 +50,7 @@ struct ContentView: View {
                 
             }
             .padding()
+            .padding(.bottom, 200)
 
         }
 
