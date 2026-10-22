@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		33B37D2E308A54B300CFFAF4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 33B37D2B308A54B300CFFAF4 /* README.md */; };
+		33B37D2F308A54B300CFFAF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 33B37D2A308A54B300CFFAF4 /* LICENSE */; };
+		33B37D30308A54B300CFFAF4 /* YearMonthPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 33B37D2D308A54B300CFFAF4 /* YearMonthPicker.png */; };
+		33B37D31308A54B300CFFAF4 /* SegmentPicker.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33B37D2C308A54B300CFFAF4 /* SegmentPicker.gif */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		339B0EEC2E87D0EF00C94C49 /* UICustomParts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICustomParts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		33B37D2A308A54B300CFFAF4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		33B37D2B308A54B300CFFAF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		33B37D2C308A54B300CFFAF4 /* SegmentPicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SegmentPicker.gif; sourceTree = "<group>"; };
+		33B37D2D308A54B300CFFAF4 /* YearMonthPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YearMonthPicker.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +43,10 @@
 		339B0EE32E87D0EF00C94C49 = {
 			isa = PBXGroup;
 			children = (
+				33B37D2A308A54B300CFFAF4 /* LICENSE */,
+				33B37D2B308A54B300CFFAF4 /* README.md */,
+				33B37D2C308A54B300CFFAF4 /* SegmentPicker.gif */,
+				33B37D2D308A54B300CFFAF4 /* YearMonthPicker.png */,
 				339B0EEE2E87D0EF00C94C49 /* UICustomParts */,
 				339B0EED2E87D0EF00C94C49 /* Products */,
 			);
@@ -109,6 +124,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33B37D2E308A54B300CFFAF4 /* README.md in Resources */,
+				33B37D2F308A54B300CFFAF4 /* LICENSE in Resources */,
+				33B37D30308A54B300CFFAF4 /* YearMonthPicker.png in Resources */,
+				33B37D31308A54B300CFFAF4 /* SegmentPicker.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
