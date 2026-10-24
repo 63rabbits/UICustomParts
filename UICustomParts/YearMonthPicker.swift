@@ -9,16 +9,25 @@ import SwiftUI
 
 struct YearMonthPicker: View {
     @Binding var selectedDate: Date
-    
+    let startYear: Int
+    let startMonth: Int
+    let stopYear: Int
+    let stopMonth: Int
+
     @State private var isShowingModal = false
     @State private var currentYear: Int
     @State private var currentMonth: Int
     
-    init(selectedDate: Binding<Date>) {
+    init(selectedDate: Binding<Date>,
+         startYear: Int = 1900, startMonth: Int = 1, stopYear: Int = 2100, stopMonth: Int = 12) {
         self._selectedDate = selectedDate
         let ym = YearMonthPicker.getNowYearMonth()
         self._currentYear = State(initialValue: ym.year)
         self._currentMonth = State(initialValue: ym.month)
+        self.startYear = startYear
+        self.startMonth = startMonth
+        self.stopYear = stopYear
+        self.stopMonth = stopMonth
     }
     
     var body: some View {
@@ -51,6 +60,10 @@ struct YearMonthPicker: View {
             YearMonthSelector(
                 year: currentYear,
                 month: currentMonth,
+                startYear: startYear,
+                startMonth: startMonth,
+                stopYear: stopYear,
+                stopMonth: stopMonth,
                 onSelect: { newYear, newMonth in
                     currentYear = newYear
                     currentMonth = newMonth
@@ -81,13 +94,24 @@ struct YearMonthPicker: View {
             currentYear += 1
         }
         
-        if currentYear < 1 {
-            currentYear = 1
-            currentMonth = 1
+        if currentMonth < startMonth {
+            if currentYear == startYear {
+                currentMonth = startMonth
+            }
+            else if currentYear < startYear {
+                currentYear = startYear
+                currentMonth = startMonth
+            }
         }
-        else if currentYear > 9999 {
-            currentYear = 9999
-            currentMonth = 12
+
+        if currentMonth > stopMonth {
+            if currentYear == stopYear {
+                currentMonth = stopMonth
+            }
+            else if currentYear > stopYear {
+                currentYear = stopYear
+                currentMonth = stopMonth
+            }
         }
     }
 
@@ -111,20 +135,31 @@ struct YearMonthPicker: View {
 
 
 struct YearMonthSelector: View {
-    var onSelect: (Int, Int) -> Void
-    
     let prevYear: Int
     let prevMonth: Int
+    let startYear: Int
+    let startMonth: Int
+    let stopYear: Int
+    let stopMonth: Int
+    var onSelect: (Int, Int) -> Void
+   
     
     @State private var currentYear: Int
     @State private var currentMonth: Int
     @State private var hoveredItem: Int? = nil
     
-    init(year: Int, month: Int, onSelect: @escaping (Int, Int) -> Void) {
+    init(year: Int, month: Int,
+         startYear: Int = 1900, startMonth: Int = 1, stopYear: Int = 2100, stopMonth: Int = 12,
+         onSelect: @escaping (Int, Int) -> Void) {
         self.prevYear = year
         self.prevMonth = month
+        
         self._currentYear = State(initialValue: year)
         self._currentMonth = State(initialValue: month)
+        self.startYear = startYear
+        self.startMonth = startMonth
+        self.stopYear = stopYear
+        self.stopMonth = stopMonth
         self.onSelect = onSelect
     }
     
@@ -165,13 +200,15 @@ struct YearMonthSelector: View {
                             hoveredItem == index ? .blue :
                             Color(.windowBackgroundColor))
                     .foregroundColor(
-                        isSelected ? .white :
-                            hoveredItem == index ? .white :
-                                .primary)
+                        !allowHit(year: currentYear, month: index) ? .primary.opacity(0) :
+                            isSelected ? .white :
+                                hoveredItem == index ? .white :
+                                    .primary)
                     .cornerRadius(10)
                     .onHover { hovering in
                         hoveredItem = hovering ? index : nil
                     }
+                    .allowsHitTesting(allowHit(year: currentYear, month: index))
                     .onTapGesture {
                         onSelect(currentYear, index)
                     }
@@ -181,12 +218,24 @@ struct YearMonthSelector: View {
     
     private func addYear(_ increment: Int) {
         currentYear += increment
-        if currentYear < 1 {
-            currentYear = 1
+        if currentYear < startYear {
+            currentYear = startYear
         }
-        else if currentYear > 9999 {
-            currentYear = 9999
+        else if currentYear > stopYear {
+            currentYear = stopYear
         }
+    }
+    
+    private func allowHit(year: Int, month: Int) -> Bool {
+        let current = year * 100 + month
+        let start = startYear * 100 + startMonth
+        let stop = stopYear * 100 + stopMonth
+        
+        if current >= start && current <= stop {
+            return true
+        }
+
+        return false
     }
     
 }

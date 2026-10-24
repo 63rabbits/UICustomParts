@@ -40,12 +40,21 @@ struct ContentView: View {
             
             VStack(spacing: 10) {
                 customName("Year Month Picker")
-
+                
                 Text("SELECT : \(selectedDate, formatter: dateFormatter)")
                     .font(.title3)
                     .padding()
 
-                YearMonthPicker(selectedDate: $selectedDate)
+                let startYear = 2025
+                let startMonth = 4
+                let stopYear = 2030
+                let stopMonth = 3
+                
+                Text(verbatim: "RANGE : \(startYear)/\(startMonth) - \(stopYear)/\(stopMonth)")
+
+                YearMonthPicker(selectedDate: $selectedDate,
+                                startYear: startYear, startMonth: startMonth,
+                                stopYear: stopYear, stopMonth: stopMonth)
                     .frame(width: 200)
                 
             }
