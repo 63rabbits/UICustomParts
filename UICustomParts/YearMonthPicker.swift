@@ -94,25 +94,19 @@ struct YearMonthPicker: View {
             currentYear += 1
         }
         
-        if currentMonth < startMonth {
-            if currentYear == startYear {
-                currentMonth = startMonth
-            }
-            else if currentYear < startYear {
-                currentYear = startYear
-                currentMonth = startMonth
-            }
-        }
+        let current = currentYear * 100 + currentMonth
+        let start = startYear * 100 + startMonth
+        let stop = stopYear * 100 + stopMonth
 
-        if currentMonth > stopMonth {
-            if currentYear == stopYear {
-                currentMonth = stopMonth
-            }
-            else if currentYear > stopYear {
-                currentYear = stopYear
-                currentMonth = stopMonth
-            }
+        if current < start {
+            currentYear = startYear
+            currentMonth = startMonth
         }
+        else if current > stop {
+            currentYear = stopYear
+            currentMonth = stopMonth
+        }
+        
     }
 
     private func updateSelectedDate() {
