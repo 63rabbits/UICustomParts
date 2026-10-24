@@ -10,12 +10,27 @@ import SwiftUI
 @main
 struct UICustomPartsApp: App {
     var body: some Scene {
-//        WindowGroup {
         Window("Sample", id: "main") {
             ContentView()
-//                .frame(minWidth: 10, idealWidth: 200, maxWidth: 200,
-//                       minHeight: 100, idealHeight: 100, maxHeight: 100,
-//                       alignment: .center)
+                .onAppear {
+                    setWindowSize(widthRate: 0.5, heightRate: 0.8)
+                }
         }
     }
+    
+    private func setWindowSize(widthRate: Double = 0.5, heightRate: Double = 0.5) {
+            guard let screen = NSScreen.main else { return }
+            let screenRect = screen.visibleFrame // The area excluding elements such as the menu bar
+            
+            let targetWidth = screenRect.width * widthRate
+            let targetHeight = screenRect.height * heightRate
+            
+            if let window = NSApplication.shared.windows.first {
+                let x = screenRect.origin.x + (screenRect.width - targetWidth) / 2
+                let y = screenRect.origin.y + (screenRect.height - targetHeight) / 2
+                
+                let newRect = NSRect(x: x, y: y, width: targetWidth, height: targetHeight)
+                window.setFrame(newRect, display: true, animate: true)
+            }
+        }
 }
