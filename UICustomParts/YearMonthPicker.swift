@@ -13,17 +13,23 @@ struct YearMonthPicker: View {
     let startMonth: Int
     let stopYear: Int
     let stopMonth: Int
+    
+    static let defaultStartYear: Int = 1900
+    static let defaultStartMonth: Int = 1
+    static let defaultStopYear: Int = 2100
+    static let defaultStopMonth: Int = 12
 
     @State private var isShowingModal = false
     @State private var currentYear: Int
     @State private var currentMonth: Int
     
     init(selectedDate: Binding<Date>,
-         startYear: Int = 1900, startMonth: Int = 1, stopYear: Int = 2100, stopMonth: Int = 12) {
+         startYear: Int = defaultStartYear, startMonth: Int = defaultStartMonth,
+         stopYear: Int = defaultStopYear, stopMonth: Int = defaultStopMonth) {
         self._selectedDate = selectedDate
-        let ym = YearMonthPicker.getNowYearMonth()
-        self._currentYear = State(initialValue: ym.year)
-        self._currentMonth = State(initialValue: ym.month)
+        let now = YearMonthPicker.getNowYearMonth()
+        self._currentYear = State(initialValue: now.year)
+        self._currentMonth = State(initialValue: now.month)
         self.startYear = startYear
         self.startMonth = startMonth
         self.stopYear = stopYear
@@ -34,9 +40,9 @@ struct YearMonthPicker: View {
         
         HStack {
             Button("Now") {
-                let ym = YearMonthPicker.getNowYearMonth()
-                currentYear = ym.year
-                currentMonth = ym.month
+                let now = YearMonthPicker.getNowYearMonth()
+                currentYear = now.year
+                currentMonth = now.month
             }
             .frame(width: 50, alignment: .center)
             
@@ -194,11 +200,10 @@ struct YearMonthSelector: View {
                             hoveredItem == index ? .blue :
                             Color(.windowBackgroundColor))
                     .foregroundColor(
-                        !allowHit(year: currentYear, month: index) ? .primary.opacity(0) :
-                            isSelected ? .white :
+                        isSelected ? .white :
+                            !allowHit(year: currentYear, month: index) ? .primary.opacity(0) :
                                 hoveredItem == index ? .white :
                                     .primary)
-                    .cornerRadius(10)
                     .onHover { hovering in
                         hoveredItem = hovering ? index : nil
                     }
@@ -206,6 +211,7 @@ struct YearMonthSelector: View {
                     .onTapGesture {
                         onSelect(currentYear, index)
                     }
+                    .cornerRadius(10)
             }
         }
     }
