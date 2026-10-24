@@ -18,6 +18,13 @@ struct ContentView: View {
     @State private var selectedDate = Date()
 
     var body: some View {
+        
+        ScrollView {
+            contents
+        }
+    }
+    
+    private var contents: some View {
         VStack {
             
             VStack {
@@ -26,14 +33,14 @@ struct ContentView: View {
                 Text("SELECT : \(selectedSegment.rawValue)")
                     .font(.title3)
                     .padding()
-
+                
                 SegmentPicker(
                     selectedSegment: $selectedSegment
                 )
-                    .frame(width: 300, height: 30)
+                .frame(width: 300, height: 30)
             }
             .padding()
-
+            
             
             Divider()
             
@@ -44,25 +51,25 @@ struct ContentView: View {
                 Text("SELECT : \(selectedDate, formatter: dateFormatter)")
                     .font(.title3)
                     .padding()
-
+                
                 let startYear = 2025
                 let startMonth = 4
                 let stopYear = 2030
                 let stopMonth = 3
                 
                 Text(verbatim: "RANGE : \(startYear)/\(startMonth) - \(stopYear)/\(stopMonth)")
-
+                
                 YearMonthPicker(selectedDate: $selectedDate,
                                 startYear: startYear, startMonth: startMonth,
                                 stopYear: stopYear, stopMonth: stopMonth)
-                    .frame(width: 200)
+                .frame(width: 200)
                 
             }
             .padding()
             .padding(.bottom, 200)
-
+            
         }
-
+        
     }
     
     private func customName(_ name: String) -> some View {
